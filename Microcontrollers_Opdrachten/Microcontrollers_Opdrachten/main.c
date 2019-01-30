@@ -10,23 +10,24 @@
 #include "globals.h"
 void b2();
 void b4();
+void b6();
 
 // Main entry point.
 int main(void)
 {
     DDRD = 0b11111111;			// All pins PORTD are set to output 
-	
+	DDRC = 0x00;
     while (1) 
     {
-		b2();
+		b6();
     }
 
 	return 0;
 }
 
 /*
-*	Switcht tussen lichtje 6 en 7.
-*/
+ *	Switcht tussen lichtje 6 en 7.
+ */
 void b2()
 {
 	PORTD = 0b10000000;
@@ -36,9 +37,8 @@ void b2()
 }
 
 /*
-*
-*	Laat ledjes op PortD loopen van boven naar beneden
-*/
+ *	Laat ledjes op PortD loopen van boven naar beneden
+ */
 void b4()
 {
 	static int direction = 1;							// Richting van loop 1 = links, 0 is rechts
@@ -52,4 +52,29 @@ void b4()
 		direction = 1;	
 		
 	wait(500);
+}
+/*
+ * Laat led 7 knipperen op basis van frequentie.
+ */
+
+
+int prev_state = 0;
+void b6()
+{
+	static int speed_level = 0;
+	static BOOL led_on = TRUE;
+	
+	const BOOL pushed = (PINC & 0b00000001);
+	if (pushed && prev_state == 0)
+	{
+		speed_level = speed_level == 0 ? 1 : 0;
+		prev_state = 1; 
+	}
+	else if (!pushed)
+		prev_state = 0;
+		
+	int hz = speed_level == 0 ? 1000 : 250;
+	PORTD = led_on == TRUE ? 0b10000000 : 0x00;
+	wait(hz);
+	led_on = led_on == TRUE ? FALSE : TRUE;
 }

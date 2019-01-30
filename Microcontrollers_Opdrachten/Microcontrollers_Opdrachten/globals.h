@@ -9,6 +9,7 @@
 #ifndef GLOBALS_H_
 #define GLOBALS_H_
 
+typedef int BOOL;
 #define FALSE 0
 #define TRUE !FALSE
 
