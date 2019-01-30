@@ -27,6 +27,7 @@ int main(void)
 
 /*
  *	Switcht tussen lichtje 6 en 7.
+ *	DDRD moet op 0b11111111 gezet worden.
  */
 void b2()
 {
@@ -38,6 +39,7 @@ void b2()
 
 /*
  *	Laat ledjes op PortD loopen van boven naar beneden
+ *	DDRD moet op 0b11111111 gezet worden.
  */
 void b4()
 {
@@ -54,27 +56,28 @@ void b4()
 	wait(500);
 }
 /*
- * Laat led 7 knipperen op basis van frequentie.
+ *	Laat led 7 knipperen op basis van frequentie.
+ *	DDRC moet op 0x00 gezet worden
  */
-
-
-int prev_state = 0;
 void b6()
 {
-	static int speed_level = 0;
-	static BOOL led_on = TRUE;
+	static int prev_state = 0;					// Vorige staat van knop. 0 = uit, 1 = aan.
+	static int speed_level = 0;					// 2 speed levels, 1 en 0.
+	static BOOL led_on = TRUE;					// Led aan en uit toggle.
 	
-	const BOOL pushed = (PINC & 0b00000001);
+	const BOOL pushed = (PINC & 0b00000001);	// Is led ingedrukt.
 	if (pushed && prev_state == 0)
 	{
-		speed_level = speed_level == 0 ? 1 : 0;
+		speed_level = speed_level == 0 ? 1 : 0;	// Verander speed level en zet prev state op 1.
 		prev_state = 1; 
 	}
 	else if (!pushed)
 		prev_state = 0;
 		
-	int hz = speed_level == 0 ? 1000 : 250;
-	PORTD = led_on == TRUE ? 0b10000000 : 0x00;
+	int hz = speed_level == 0 ? 1000 : 250;		// HZ van knipper licht
+	PORTD = (led_on) ? 0b10000000 : 0x00;		// Zet led uit of aan.
+	
 	wait(hz);
-	led_on = led_on == TRUE ? FALSE : TRUE;
+	
+	led_on = !led_on;							//== TRUE ? FALSE : TRUE;
 }
