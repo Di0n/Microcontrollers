@@ -7,9 +7,11 @@
 
 #include <avr/io.h>
 #include "utils.h"
-
+#include "globals.h"
 void b2();
 void b4();
+
+// Main entry point.
 int main(void)
 {
     DDRD = 0b11111111;			// All pins PORTD are set to output 
@@ -18,10 +20,13 @@ int main(void)
     {
 		b2();
     }
-	
+
 	return 0;
 }
 
+/*
+*	Switcht tussen lichtje 6 en 7.
+*/
 void b2()
 {
 	PORTD = 0b10000000;
@@ -30,22 +35,21 @@ void b2()
 	wait(500);
 }
 
-//int value = 0x01;
-//int direction = 1;
+/*
+*
+*	Laat ledjes op PortD loopen van boven naar beneden
+*/
 void b4()
 {
-	static int direction = 1;
-	static int value = 0x01;
-	value = (direction == 1) ? value << 1 : value >> 1;
+	static int direction = 1;							// Richting van loop 1 = links, 0 is rechts
+	static int value = 0x01;							// 0b00000001
+	value = (direction == 1) ? value << 1 : value >> 1;	// Richting bepaald
 
-	PORTD = value;
-	if (value == 0x80)
-	{
+	PORTD = value;										// Zet portd op waarde
+	if (value == 0x80)									// Verander van richting als waarde op uiterste links zit
 		direction = 0;
-	}
-	else if (value == 0x01)
-	{
+	else if (value == 0x01)								// Verander van richting als waarde op uiterste rechts zit
 		direction = 1;	
-	}
+		
 	wait(500);
 }
