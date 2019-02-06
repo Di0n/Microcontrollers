@@ -5,3 +5,8 @@
  *  Author: Dion van der Linden
  */ 
 #include "track2.h"
+
+void run_track2()
+{
+	
+}

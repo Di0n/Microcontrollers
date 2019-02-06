@@ -6,20 +6,17 @@
  */ 
 
 #include <avr/io.h>
-#include "utils.h"
+#include <avr/interrupt.h>
 #include "globals.h"
 #include "track1.h"
-
+#include "ioisr.h"
 
 // Main entry point.
 int main(void)
 {
     //DDRD = 0b11111111;			// All pins PORTD are set to output 
 	//DDRC = 0x00;
-    while (1) 
-    {
-		b6();
-    }
+    run();
 
 	return 0;
 }

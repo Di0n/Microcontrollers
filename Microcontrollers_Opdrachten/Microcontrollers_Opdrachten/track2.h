@@ -10,7 +10,7 @@
 #define TRACK2_H_
 
 
-
+void run_track2();
 
 
 #endif /* TRACK2_H_ */
