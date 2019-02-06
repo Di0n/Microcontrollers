@@ -9,7 +9,7 @@
 #ifndef IOISR_H_
 #define IOISR_H_
 
-int run( void );
+int run_ioisr( void );
 
 
 

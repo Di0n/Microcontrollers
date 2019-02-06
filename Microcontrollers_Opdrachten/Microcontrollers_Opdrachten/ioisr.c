@@ -55,7 +55,7 @@ Version :    	DMK, Initial code
 }
 
 /******************************************************************/
-int run( void )
+int run_ioisr( void )
 /* 
 short:			main() loop, entry point of executable
 inputs:			
