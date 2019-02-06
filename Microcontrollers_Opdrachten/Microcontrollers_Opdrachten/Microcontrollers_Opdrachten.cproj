@@ -138,12 +138,6 @@
     <Compile Include="globals.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ioisr.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="ioisr.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

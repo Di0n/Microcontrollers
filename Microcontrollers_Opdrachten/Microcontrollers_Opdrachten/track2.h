@@ -11,6 +11,7 @@
 
 
 void run_track2();
+void t2b2();
 
 
 #endif /* TRACK2_H_ */
