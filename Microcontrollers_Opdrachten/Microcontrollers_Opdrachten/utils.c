@@ -4,7 +4,7 @@
  * Created: 30-1-2019 11:14:35
  *  Author: Dion van der Linden
  */ 
-#define F_CPU 8000000L
+
 #include "utils.h"
 #include <util/delay.h>
 
