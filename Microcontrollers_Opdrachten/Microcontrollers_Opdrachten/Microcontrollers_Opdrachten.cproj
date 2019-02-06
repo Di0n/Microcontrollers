@@ -147,6 +147,12 @@
     <Compile Include="track1.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="track2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="track2.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="utils.c">
       <SubType>compile</SubType>
     </Compile>

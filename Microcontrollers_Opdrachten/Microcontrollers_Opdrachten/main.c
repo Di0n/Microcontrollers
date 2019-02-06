@@ -14,8 +14,8 @@
 // Main entry point.
 int main(void)
 {
-    DDRD = 0b11111111;			// All pins PORTD are set to output 
-	DDRC = 0x00;
+    //DDRD = 0b11111111;			// All pins PORTD are set to output 
+	//DDRC = 0x00;
     while (1) 
     {
 		b6();
