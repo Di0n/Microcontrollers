@@ -7,6 +7,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Microcontrollers_Opdrachten
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Track2", "Track2\Track2.cproj", "{0CB0EA58-C94B-41A7-A978-7B1C74D3EDDA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Track_2", "Track_2", "{DEC5CC6B-7AD1-478C-AC8D-2BC8FA6DD678}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "B3_Coding7_Segment", "B3_Coding7_Segment\B3_Coding7_Segment.cproj", "{91B1BAFC-1E93-494C-BA46-55B679FD5770}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -21,8 +25,15 @@ Global
 		{0CB0EA58-C94B-41A7-A978-7B1C74D3EDDA}.Debug|AVR.Build.0 = Debug|AVR
 		{0CB0EA58-C94B-41A7-A978-7B1C74D3EDDA}.Release|AVR.ActiveCfg = Release|AVR
 		{0CB0EA58-C94B-41A7-A978-7B1C74D3EDDA}.Release|AVR.Build.0 = Release|AVR
+		{91B1BAFC-1E93-494C-BA46-55B679FD5770}.Debug|AVR.ActiveCfg = Debug|AVR
+		{91B1BAFC-1E93-494C-BA46-55B679FD5770}.Debug|AVR.Build.0 = Debug|AVR
+		{91B1BAFC-1E93-494C-BA46-55B679FD5770}.Release|AVR.ActiveCfg = Release|AVR
+		{91B1BAFC-1E93-494C-BA46-55B679FD5770}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91B1BAFC-1E93-494C-BA46-55B679FD5770} = {DEC5CC6B-7AD1-478C-AC8D-2BC8FA6DD678}
 	EndGlobalSection
 EndGlobal
