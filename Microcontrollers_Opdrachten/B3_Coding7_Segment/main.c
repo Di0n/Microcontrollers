@@ -12,6 +12,7 @@
 
 
 void display(int);
+void showlightshow();
 
 
 int main(void)
@@ -40,6 +41,8 @@ int main(void)
 		display(num);
 		wait(100);
 	}
+	
+	showlightshow();
 	
 	return 0;
 }
@@ -71,3 +74,35 @@ void display(int num)
 		PORTD = 0b01111011;	
 }
 
+void showlightshow()
+{
+	int light_sequence[15] = {
+		0b00000001,
+		0b00000010,
+		0b01000000,
+		0b00010000,
+		0b00001000,
+		0b00000100,
+		0b01000000,
+		0b00100000,
+		0b00000001,
+		0b00100011,
+		0b01100011,
+		0b01110111,
+		0b01111111,
+		0b00111111,
+		0b00000000
+	};
+	
+	int counter = 0;
+	while(1)
+	{
+		PORTD = light_sequence[counter];
+		counter++;
+		
+		if(counter > 15)
+			counter = 0;
+		
+		wait(250);
+	}
+}
