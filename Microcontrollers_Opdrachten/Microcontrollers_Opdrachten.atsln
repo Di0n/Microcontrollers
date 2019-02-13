@@ -13,6 +13,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "B3_Coding7_Segment", "B3_Co
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "B4_Coding7_Segment_fun", "B4_Coding7_Segment_fun\B4_Coding7_Segment_fun.cproj", "{753DBC4F-CED3-447E-BCD1-7F8250EFA10D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Track_3", "Track_3", "{55D7BD18-9801-4BEF-BA20-866FD4211CE9}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "A_Kennismaking_LCD", "A_Kennismaking_LCD\A_Kennismaking_LCD.cproj", "{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -35,6 +39,10 @@ Global
 		{753DBC4F-CED3-447E-BCD1-7F8250EFA10D}.Debug|AVR.Build.0 = Debug|AVR
 		{753DBC4F-CED3-447E-BCD1-7F8250EFA10D}.Release|AVR.ActiveCfg = Release|AVR
 		{753DBC4F-CED3-447E-BCD1-7F8250EFA10D}.Release|AVR.Build.0 = Release|AVR
+		{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55}.Debug|AVR.ActiveCfg = Debug|AVR
+		{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55}.Debug|AVR.Build.0 = Debug|AVR
+		{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55}.Release|AVR.ActiveCfg = Release|AVR
+		{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +50,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{91B1BAFC-1E93-494C-BA46-55B679FD5770} = {DEC5CC6B-7AD1-478C-AC8D-2BC8FA6DD678}
 		{753DBC4F-CED3-447E-BCD1-7F8250EFA10D} = {DEC5CC6B-7AD1-478C-AC8D-2BC8FA6DD678}
+		{37AEF8D1-9E03-4DA2-9715-AB5E0B80CA55} = {55D7BD18-9801-4BEF-BA20-866FD4211CE9}
 	EndGlobalSection
 EndGlobal
