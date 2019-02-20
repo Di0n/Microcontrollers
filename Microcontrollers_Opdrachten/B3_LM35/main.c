@@ -45,11 +45,13 @@ int main(void)
 		
 		while (ADCSRA & (1 << 6));
 		
-		const int val = ADCH << 1;
+		const int val = ADCH; //(ADCH << 1);
 		char str[8];
 		itoa(val, str, 8);
+
 		lcd_write_string(str);
 		
+		PORTA = val;
 		wait(500);
 	}
 	

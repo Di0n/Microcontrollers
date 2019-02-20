@@ -38,27 +38,27 @@ int main(void)
 	
 	lcd_write_string("Starting program");
 	wait(5000);
-	
 
 	while (1)
 	{
+		// Zet de conversie aan, wordt automatisch uitgeschakeld na het converteren.
 		ADCSRA |= (1 << 6);
 		
 
 		// Write sample string
 		lcd_clear_display();
-		//wait(1);
+
 		lcd_set_cursor_pos(0);
-		//wait(1);
+
 		lcd_write_string("Starting conversion");
 		wait(1000);
-		while (ADCSRA & (1 << 6)) ;
+		while (ADCSRA & (1 << 6)) ; // Wacht totdat ADC conversie klaar is.
 		lcd_clear_display();
-		//wait(1);
+
 		lcd_set_cursor_pos(0);
-		//wait(1);
+
 		lcd_write_string("Done converting");
-		//wait(1);
+
 		PORTB = ADCL;
 		PORTA = ADCH;
 		wait(500);
