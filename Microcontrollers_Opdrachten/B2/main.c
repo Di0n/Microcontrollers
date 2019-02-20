@@ -5,9 +5,12 @@
  * Author : Dion van der Linden
  */ 
 
-#include "utils.h"
+
+
+
 #include <avr/io.h>
 
+#include "utils.h"
 #include "lcd.h"
 
 // http://www.robotplatform.com/knowledge/ADC/adc_tutorial_2.html
@@ -28,25 +31,37 @@ int main(void)
 {
 	DDRF = 0x00; // Input
 	DDRA = 0xFF; // Output;
-	//DDRB = 0xFF; // Output
+	DDRB = 0xFF; // Output
 	
 	adcInit();
 	lcd_init();
+	
+	lcd_write_string("Starting program");
+	wait(5000);
+	
+
 	while (1)
 	{
-		
-		wait(2000);
 		ADCSRA |= (1 << 6);
 		
 
 		// Write sample string
+		lcd_clear_display();
+		//wait(1);
+		lcd_set_cursor_pos(0);
+		//wait(1);
 		lcd_write_string("Starting conversion");
+		wait(1000);
 		while (ADCSRA & (1 << 6)) ;
+		lcd_clear_display();
+		//wait(1);
+		lcd_set_cursor_pos(0);
+		//wait(1);
 		lcd_write_string("Done converting");
-		
-		//PORTB = ADCL;
+		//wait(1);
+		PORTB = ADCL;
 		PORTA = ADCH;
-		wait(100);
+		wait(500);
 	}
 	
 	return 0;
