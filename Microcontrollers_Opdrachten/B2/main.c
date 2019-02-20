@@ -31,7 +31,7 @@ int main(void)
 	//DDRB = 0xFF; // Output
 	
 	adcInit();
-	init();
+	lcd_init();
 	while (1)
 	{
 		
@@ -40,9 +40,9 @@ int main(void)
 		
 
 		// Write sample string
-		//lcd_write_string("Starting conversion");
+		lcd_write_string("Starting conversion");
 		while (ADCSRA & (1 << 6)) ;
-		//lcd_write_string("Done converting");
+		lcd_write_string("Done converting");
 		
 		//PORTB = ADCL;
 		PORTA = ADCH;
