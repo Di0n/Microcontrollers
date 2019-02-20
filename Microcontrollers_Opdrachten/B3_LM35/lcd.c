@@ -15,13 +15,11 @@
 ** -------------------------------------------------------------------------*/
 
 
+#include "lcd.h"
+#include "utils.h"
+
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
-
-#define LCD_E 	3
-#define LCD_RS	2
-
 /******************************************************************/
 void lcd_strobe_lcd_e(void)
 /*
@@ -33,9 +31,9 @@ Version :    	DMK, Initial code
 *******************************************************************/
 {
 	PORTC |= (1<<LCD_E);	// E high
-	_delay_ms(25);			// nodig
+	wait(25);			// nodig
 	PORTC &= ~(1<<LCD_E);  	// E low
-	_delay_ms(25);			// nodig?
+	wait(25);			// nodig?
 }
 
 /******************************************************************/
@@ -95,6 +93,7 @@ Version :    	DMK, Initial code
 	// of met een for:
 	for(;*str; str++){
 		lcd_write_data(*str);
+		wait(1);
 	}
 }
 
@@ -139,4 +138,18 @@ Version :    	DMK, Initial code
 	PORTC = (byte<<4);
 	PORTC &= ~(1<<LCD_RS);
 	lcd_strobe_lcd_e();
+}
+
+void lcd_set_cursor_pos(int pos)
+{
+	/*for (int i = 0; i < pos; i++)
+		lcd_write_command(0x14);*/
+	lcd_write_command(0x00);
+	wait(1);
+}
+
+void lcd_clear_display(void)
+{
+	lcd_write_command(0x01);
+	wait(1);
 }
