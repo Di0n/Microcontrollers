@@ -19,10 +19,10 @@ Version :    	DMK, Initial code
 	DDRD = 0xFF;			// PORTD(7) output, PORTD(6:0) input	
 
 	// Init LCD
-	init();
+	init_4bits_mode();
 
 	// Write sample string
-	lcd_write_string("test12345678909876543211234567890");
+	lcd_write_string("Hello There");
 
 	// Loop forever
 	while (1)
