@@ -135,10 +135,10 @@ void writeToSegments(int value)
 {		
 	for (char i =1; i<=4; i++)
 	{
-		spi_slaveSelect(0);
-		spi_write(i);
-		spi_write(value % 10);
-		spi_slaveDeSelect(0);
+		spi_slaveSelect(0);		// Select display chip
+		spi_write(i);			// Find display segment
+		spi_write(value % 10);	// Print the value for segment
+		spi_slaveDeSelect(0);	// Deselect display chip
 		
 		value /= 10;
 	}
@@ -147,17 +147,15 @@ void writeToSegments(int value)
 // Write a numeric value between -999 and 9999 to the segment display
 void writeLedDisplay(int value)
 { 
-	if(value < 9999 && value > 0)
-	{
-		// This fits, write it directly onto the segments
+	if(value < 9999 && value > 0) /* This fits in the segments */
 		writeToSegments(value);
-	}
-	else if(value > -1000)
+		
+	else if(value > -1000) /* Fits but needs a (-) */
 	{
 		// Write the number as positive value on the segments
 		writeToSegments(value * -1);
 	
-		// Write a (-) to the leftmost segment to indicate a negative value
+		// Write a (-) to the leftmost segment
 		spi_slaveSelect(0);
 		spi_write(4);
 		spi_write(10);
