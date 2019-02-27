@@ -140,39 +140,41 @@ void writeLedDisplay( int value )
 		spi_write(0);				// 	digit value: 0
 		spi_slaveDeSelect(0);		// Deselect display chip
 	}
-	//wait(1000);
 		 
 	if(value < 9999 && value > 0)
 	{
-		// write 4-digit data
+		// Write the data to the segment display
 		for (char i =1; i<=4; i++)
+		{
+			spi_slaveSelect(0);
+			spi_write(i);
+			spi_write(value % 10);
+			spi_slaveDeSelect(0);
+				 
+			value /= 10;
+		}
+	}
+	else if(value > -1000)
+	{
+		// Make the value positive for the algorithm to work
+		value = value*-1;
+		
+		// Writing the new positive value to the segment display
+		for (char i =1; i<=3; i++)
 		{
 			spi_slaveSelect(0);         // Select display chip
 			spi_write(i);         		// 	digit adress: (digit place)
 			spi_write(value % 10);  		// 	digit value: i (= digit place)
 			spi_slaveDeSelect(0); 		// Deselect display chip
-				 
 			value /= 10;
-			//wait(1000);
 		}
-	}
-	else if(value > -1000)
-	{
-		value = value*-1;
-			for (char i =1; i<=3; i++)
-			{
-				spi_slaveSelect(0);         // Select display chip
-				spi_write(i);         		// 	digit adress: (digit place)
-				spi_write(value % 10);  		// 	digit value: i (= digit place)
-				spi_slaveDeSelect(0); 		// Deselect display chip
-				value /= 10;
-	}
 	
-	spi_slaveSelect(0);         // Select display chip
-	spi_write(4);         		// 	digit adress: (digit place)
-	spi_write(10);  		// 	digit value: i (= digit place)
-	spi_slaveDeSelect(0); 		// Deselect display chip
-}
+		// Write a - to the leftmost segment to indicate a negative value
+		spi_slaveSelect(0);
+		spi_write(4);
+		spi_write(10);
+		spi_slaveDeSelect(0);
+	}
 }
 
 int main()
