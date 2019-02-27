@@ -36,6 +36,9 @@
 #define SPI_MISO	3						// PB3: spi Pin MISO
 #define SPI_SS		0						// PB0: spi Pin Slave Select
 
+void spi_writeWord(unsigned char address, unsigned char data);
+
+
 // wait(): busy waiting for 'ms' millisecond
 // used library: util/delay.h
 void wait(int ms)
@@ -45,6 +48,7 @@ void wait(int ms)
 			_delay_ms(1);
 		}
 }
+
 
 void spi_masterInit(void)
 {
@@ -83,11 +87,10 @@ void spi_slaveSelect(unsigned char chipNumber)
 // Deselect device on pinnumer PORTB
 void spi_slaveDeSelect(unsigned char chipNumber)
 {
-
 	PORTB |= BIT(chipNumber);
 }
 
-
+// https://bb.avans.nl/bbcswebdav/pid-1343052-dt-content-rid-41098335_1/courses/AEI-1819C-TI-2-3-VT/MAX7219-MAX7221.pdf pagina 9
 // Initialize the driver chip (type MAX 7219)
 void displayDriverInit() 
 {
@@ -98,12 +101,12 @@ void displayDriverInit()
 
   	spi_slaveSelect(0);				// Select dispaly chip
   	spi_write(0x0A);      			// Register 0A: Intensity
-  	spi_write(0x04);    			//  -> Level 4 (in range [1..F])
+  	spi_write(0x0F);    			//  -> Level 4 (in range [1..F]) F = Hoogste brightness   // Def: 0x04
   	spi_slaveDeSelect(0);			// Deselect display chip
 
   	spi_slaveSelect(0);				// Select display chip
   	spi_write(0x0B);  				// Register 0B: Scan-limit
-  	spi_write(0x01);   				// 	-> 1 = Display digits 0..1
+  	spi_write(0x03);   				// 	-> 1 = Display digits 0..1 4 segmenten 0..3 // Def: 0x01
   	spi_slaveDeSelect(0);			// Deselect display chip
 
   	spi_slaveSelect(0);				// Select display chip
@@ -130,6 +133,14 @@ void displayOff()
   	spi_slaveDeSelect(0);			// Deselect display chip
 }
 
+void spi_writeWord(unsigned char address, unsigned char data)
+{
+	spi_slaveSelect(0);		// Select display chip
+	spi_write(address);		// 	digit adress: (digit place)
+	spi_write(data);		// 	digit value: i (= digit place)
+	spi_slaveDeSelect(0);	// Deselect display chip
+}
+
 int main()
 {
 	// inilialize
@@ -138,28 +149,20 @@ int main()
 	displayDriverInit();            // Initialize display chip
 
  	// clear display (all zero's)
-	for (char i =1; i<=2; i++)
+	for (char i =1; i<=4; i++)
 	{
-      	spi_slaveSelect(0); 		// Select display chip
-      	spi_write(i);  				// 	digit adress: (digit place)
-      	spi_write(0);				// 	digit value: 0 
-  	  	spi_slaveDeSelect(0);		// Deselect display chip
+      	spi_writeWord(i, 0);
 	}    
-	wait(1000);
+	
+	wait(2000);
 
 	// write 4-digit data  
- 	for (char i =1; i<=2; i++)
+ 	for (char i = 4; i>=1; i--)
   	{
-		spi_slaveSelect(0);         // Select display chip
-		spi_write(i);         		// 	digit adress: (digit place)
-		spi_write(i);  		// 	digit value: i (= digit place)
-		spi_slaveDeSelect(0); 		// Deselect display chip
-	
+		spi_writeWord(i, 5 - i);
 		wait(1000);
   	}
 	wait(1000);
-
-
 
   	return (1);
 }
