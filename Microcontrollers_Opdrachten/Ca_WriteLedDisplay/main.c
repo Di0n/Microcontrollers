@@ -183,29 +183,7 @@ int main()
 	DDRB=0x01;					  	// Set PB0 pin as output for display select
 	spi_masterInit();              	// Initialize spi module
 	displayDriverInit();            // Initialize display chip
-/*
- 	//// clear display (all zero's)
-	//for (char i =1; i<=4; i++)
-	//{
-      	//spi_slaveSelect(0); 		// Select display chip
-      	//spi_write(i);  				// 	digit adress: (digit place)
-      	//spi_write(0);				// 	digit value: 0 
-  	  	//spi_slaveDeSelect(0);		// Deselect display chip
-	//}    
-	//wait(1000);
-//
-	//// write 4-digit data  
- 	//for (char i =1; i<=4; i++)
-  	//{
-		//spi_slaveSelect(0);         // Select display chip
-		//spi_write(i);         		// 	digit adress: (digit place)
-		//spi_write(i);  		// 	digit value: i (= digit place)
-		//spi_slaveDeSelect(0); 		// Deselect display chip
-	//
-		//wait(1000);
-  	//}
-	//wait(1000);
-*/
+
 	writeLedDisplay(-123);
 
 	wait(1000);
