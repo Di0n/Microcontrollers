@@ -130,46 +130,34 @@ void displayOff()
   	spi_slaveDeSelect(0);			// Deselect display chip
 }
 
-void writeLedDisplay( int value )
-{
-	// clear display (all zero's)
+// Write a positive value to the segments
+void writeToSegments(int value)
+{		
 	for (char i =1; i<=4; i++)
 	{
-		spi_slaveSelect(0); 		// Select display chip
-		spi_write(i);  				// 	digit adress: (digit place)
-		spi_write(0);				// 	digit value: 0
-		spi_slaveDeSelect(0);		// Deselect display chip
+		spi_slaveSelect(0);
+		spi_write(i);
+		spi_write(value % 10);
+		spi_slaveDeSelect(0);
+		
+		value /= 10;
 	}
-		 
+}
+
+// Write a numeric value between -999 and 9999 to the segment display
+void writeLedDisplay(int value)
+{ 
 	if(value < 9999 && value > 0)
 	{
-		// Write the data to the segment display
-		for (char i =1; i<=4; i++)
-		{
-			spi_slaveSelect(0);
-			spi_write(i);
-			spi_write(value % 10);
-			spi_slaveDeSelect(0);
-				 
-			value /= 10;
-		}
+		// This fits, write it directly onto the segments
+		writeToSegments(value);
 	}
 	else if(value > -1000)
 	{
-		// Make the value positive for the algorithm to work
-		value = value*-1;
-		
-		// Writing the new positive value to the segment display
-		for (char i =1; i<=3; i++)
-		{
-			spi_slaveSelect(0);         // Select display chip
-			spi_write(i);         		// 	digit adress: (digit place)
-			spi_write(value % 10);  		// 	digit value: i (= digit place)
-			spi_slaveDeSelect(0); 		// Deselect display chip
-			value /= 10;
-		}
+		// Write the number as positive value on the segments
+		writeToSegments(value * -1);
 	
-		// Write a - to the leftmost segment to indicate a negative value
+		// Write a (-) to the leftmost segment to indicate a negative value
 		spi_slaveSelect(0);
 		spi_write(4);
 		spi_write(10);
@@ -184,7 +172,7 @@ int main()
 	spi_masterInit();              	// Initialize spi module
 	displayDriverInit();            // Initialize display chip
 
-	writeLedDisplay(-123);
+	writeLedDisplay(485);
 
 	wait(1000);
 
