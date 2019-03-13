@@ -55,15 +55,15 @@ int main(void)
 		Utils_Wait(15);
 		write(0);
 
-		pulse = PORTA1;
+		/*pulse = PORTA1;
 		int count = pulse / 58;
 		LCD_ClearDisplay();
 		LCD_SetCursorPos(0x00);
 		
 		char str[8];
 		itoa(count, str, 8);
-		LCD_WriteString(str);
-		
+		LCD_WriteString(str);*/
+		Utils_Wait(1000);
 		//Utils_Wait(10);
     }
 

@@ -1,0 +1,17 @@
+﻿Ultrasoon 2 pins (in/out)
+
+Rising edge en falling edge op in pin registreren
+
+1. out pin aan
+2. out pin uit
+Nu kun je via de in pin beginnen met het lezen van de pulse.
+De pulse begint zodra je stuurt en eindigt totdat deze weer terug is bij de ultrasoon. (ligt aan afstand)
+
+Tijd ertussen meten.
+
+3. Rising edge start de timer, op falling edge stop de timer.
+4. Dan heb je de tijd hiertussen.
+
+5. Met de tijd kun je de afstand berekenen
+
+Repeat.
