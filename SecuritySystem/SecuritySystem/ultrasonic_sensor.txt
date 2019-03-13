@@ -1,6 +1,6 @@
 ﻿Ultrasoon 2 pins (in/out)
 
-Rising edge en falling edge op in pin registreren
+Rising edge (begin) en falling edge (terug) op in pin registreren
 
 1. out pin aan
 2. out pin uit
