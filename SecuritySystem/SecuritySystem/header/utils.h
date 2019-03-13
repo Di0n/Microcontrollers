@@ -12,7 +12,7 @@
 #ifndef F_CPU
 #define F_CPU 8000000L
 #endif 
-void wait(int ms);
+void Utils_Wait(int ms);
 
 
 

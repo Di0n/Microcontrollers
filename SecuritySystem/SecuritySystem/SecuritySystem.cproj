@@ -126,7 +126,13 @@
     <Folder Include="source" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="header\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="header\utils.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="source\lcd.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="source\main.c">
@@ -141,6 +147,11 @@
     <Compile Include="test.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="code.txt">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

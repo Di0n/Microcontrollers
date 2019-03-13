@@ -6,7 +6,7 @@
  */ 
 #include "../header/utils.h"
 #include <util/delay.h>
-void wait(int ms)
+void Utils_Wait(int ms)
 {
 	for (int i=0; i<ms; i++)
 	{
