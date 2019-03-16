@@ -1,4 +1,3 @@
-
 /*
  * SecuritySystem.c
  *
@@ -19,54 +18,45 @@
 void write(int val);
 
 volatile int pulse = 0;
+int shittimer_enabled = 0;
 
+// Rising edge -> start timer
 ISR(INT0_vect)
 {
-	static int i = 0;
-	if (i == 1)
-	{
-		TCCR1B = 0;
-		pulse = TCNT1;
-		TCNT1 = 0;
-		i = 0;
-	}
-	if (i == 0)
-	{
-		TCCR1B |= 1 << CS10;
-		i = 1;
-	}
+	shittimer_enabled = 1;
+}
+
+// Falling edge -> stop timer
+ISR(INT1_vect)
+{
+	shittimer_enabled = 0;
 }
 
 int main(void)
 {
-	// 0 = input 1 = output
-	DDRA = 0b00000101;//0x65; // 0b00000101
-    /* Replace with your application code */
+	DDRA = 0b00000101;		// A0 = ultrasoon input, A1 = ultrasoon trigger, A2 = IR input
+	DDRD = 0b00000000;		// Output voor debuggen op de LEDs
 	
-	//EICRA |= 0b00000011;
-	//EIMSK |= 0b00000001;
-	
-	//sei();
+	EICRA = 0b00001011;		// INT1 falling edge, INT0 rising edge
+	EIMSK = 0b00000011;		// Enable INT1 & INT0
 	
 	LCD_Init();
-    while (1) 
-    {
-		write(1);
-		Utils_Wait(15);
-		write(0);
-
-		/*pulse = PORTA1;
-		int count = pulse / 58;
-		LCD_ClearDisplay();
-		LCD_SetCursorPos(0x00);
+	
+	sei();
+	
+	long shittimer = 0;
+	
+	while(1)
+	{
+		while(shittimer_enabled)
+		{
+			shittimer++;
+		}
 		
-		char str[8];
-		itoa(count, str, 8);
-		LCD_WriteString(str);*/
-		Utils_Wait(1000);
-		//Utils_Wait(10);
-    }
-
+		char temp;
+		LCD_WriteString(ltoa(shittimer, &temp, 10));
+	}
+	
 	return 0;
 }
 
@@ -77,4 +67,3 @@ void write(int toggle)
 	else if (toggle == 0)
 		PORTA &= ~(1<<PULSE_OUT);
 }
-
