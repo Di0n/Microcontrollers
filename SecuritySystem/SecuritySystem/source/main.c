@@ -20,11 +20,14 @@
 void write(int val);
 
 
-/*399999
+/*
+	399999
 	Timer resolution = 1 / F_CPU (8000000 = 8MHZ)
 	Target frequency = 1/20
 	Timer clock frequency = 1/1000000 -1 (8m op deze cpu)
 	Timer resolution = 1 / input frequency (bijv 100hz) = .01s
+
+	Draaiend op 8mhz moet de timer tot 399999 tellen om 1/20 van een seconde te bereiken.
 */
 int main(void)
 {
@@ -37,14 +40,13 @@ int main(void)
 	
 	//sei();
 	DDRB = 0b11111111;		// PORT B output
-	TCCR1B |= (1 << CS10);	// geef de timer een klok (fcpu) 
+	TCCR1B |= ((1 << CS10) | (1 << CS11));	// geef de timer een klok (fcpu) 
 	
 	//LCD_Init();
 	
-	int times = 0;
     while (1) 
     {
-		if (TCNT1 >= 49999)
+		if (TCNT1 >= 31248)
 		{
 			//LCD_ClearDisplay();
 			//LCD_SetCursorPos(0x00);

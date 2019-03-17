@@ -10,7 +10,7 @@
 #define GLOBALS_H_
 
 #ifndef F_CPU
-#define F_CPU 8000000L
+#define F_CPU 1000000L//8000000L
 #endif
 
 #endif /* GLOBALS_H_ */
