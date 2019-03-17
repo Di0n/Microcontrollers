@@ -5,6 +5,7 @@
  *  Author: Dion van der Linden
  */ 
 #include "../header/utils.h"
+#include "../header/globals.h"
 #include <util/delay.h>
 void Utils_Wait(int ms)
 {

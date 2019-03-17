@@ -9,6 +9,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../header/utils.h"
 #include "../header/lcd.h"
 
@@ -18,53 +19,42 @@
 // Pulse in = 1
 void write(int val);
 
-volatile int pulse = 0;
 
-ISR(INT0_vect)
-{
-	static int i = 0;
-	if (i == 1)
-	{
-		TCCR1B = 0;
-		pulse = TCNT1;
-		TCNT1 = 0;
-		i = 0;
-	}
-	if (i == 0)
-	{
-		TCCR1B |= 1 << CS10;
-		i = 1;
-	}
-}
-
+/*399999
+	Timer resolution = 1 / F_CPU (8000000 = 8MHZ)
+	Target frequency = 1/20
+	Timer clock frequency = 1/1000000 -1 (8m op deze cpu)
+	Timer resolution = 1 / input frequency (bijv 100hz) = .01s
+*/
 int main(void)
 {
 	// 0 = input 1 = output
-	DDRA = 0b00000101;//0x65; // 0b00000101
+	//DDRA = 0b00000101;//0x65; // 0b00000101
     /* Replace with your application code */
 	
 	//EICRA |= 0b00000011;
 	//EIMSK |= 0b00000001;
 	
 	//sei();
+	DDRB = 0b11111111;		// PORT B output
+	TCCR1B |= (1 << CS10);	// geef de timer een klok (fcpu) 
 	
-	LCD_Init();
+	//LCD_Init();
+	
+	int times = 0;
     while (1) 
     {
-		write(1);
-		Utils_Wait(15);
-		write(0);
-
-		/*pulse = PORTA1;
-		int count = pulse / 58;
-		LCD_ClearDisplay();
-		LCD_SetCursorPos(0x00);
-		
-		char str[8];
-		itoa(count, str, 8);
-		LCD_WriteString(str);*/
-		Utils_Wait(1000);
-		//Utils_Wait(10);
+		if (TCNT1 >= 49999)
+		{
+			//LCD_ClearDisplay();
+			//LCD_SetCursorPos(0x00);
+			//char str[25] = "Reached";
+			//itoa(times, str, 25);
+			//LCD_WriteString("Reached");
+			PORTB ^= (1 << 0);
+			TCNT1 = 0;
+		}
+		//Utils_Wait(100);
     }
 
 	return 0;
@@ -77,4 +67,3 @@ void write(int toggle)
 	else if (toggle == 0)
 		PORTA &= ~(1<<PULSE_OUT);
 }
-
