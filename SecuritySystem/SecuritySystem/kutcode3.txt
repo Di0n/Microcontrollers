@@ -1,0 +1,57 @@
+﻿TIMSK = (1 << TOIE1);
+	
+	TCCR1A = 0;
+	
+	sei();
+    while (1) 
+    {
+		//if (TCNT1 >= 31248)
+		//{
+			////LCD_ClearDisplay();
+			////LCD_SetCursorPos(0x00);
+			////char str[25] = "Reached";
+			////itoa(times, str, 25);
+			////LCD_WriteString("Reached");
+			//PORTB ^= (1 << 0);
+			//TCNT1 = 0;
+		//}
+		
+		PORTA |= (1 << PA0);
+		Utils_Wait(15);
+		PORTA &= (~(1 << PA0));
+		
+		//
+		//TCNT1 = 0;
+		//TCCR1B = 0x41;
+		//TIFR = 1 << ICF1;
+		//TIFR = 1 << TOV1;
+		//
+		//sei();
+		//fastPrint("1");
+		//while ((TIFR & (1 << ICF1)) == 0);
+		//fastPrint("2");
+		//TCNT1 = 0;
+		//TCCR1B = 0x01;
+		//TIFR = 1 << ICF1;
+		//TIFR = 1 << TOV1;
+		//sei();
+		//count = 0;
+		//
+		//while ((TIFR & (1 << ICF1)) == 0);
+		//
+		//fastPrint("3");
+		//
+		//long dataCount = ICR1 + (65535 * count);
+		//
+		//double distance = (double) dataCount / 466.47;
+		//
+		//char string[10];
+		//dtostrf(distance, 2, 2, string);
+		//strcat(string, "cm ");
+		//LCD_ClearDisplay();
+		//LCD_SetCursorPos(0x00);
+		//LCD_WriteString("Dist = ");
+		//LCD_WriteString(string);
+		
+		Utils_Wait(200);
+    }

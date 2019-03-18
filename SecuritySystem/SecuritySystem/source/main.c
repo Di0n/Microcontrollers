@@ -10,16 +10,33 @@
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "../header/utils.h"
 #include "../header/lcd.h"
 
 #define PULSE_OUT 0
 #define PULSE_IN 1
+#define MS 8
+//#define SECOND 50000
 // Pulse out = 0
 // Pulse in = 1
 void write(int val);
 
 
+
+volatile int count = 0;
+
+
+void fastPrint(const char* str)
+{
+	LCD_ClearDisplay();
+	LCD_SetCursorPos(0x00);
+	LCD_WriteString(str);	
+}
+ISR( TIMER1_OVF_vect )
+{
+	count++;
+}
 /*
 	399999
 	Timer resolution = 1 / F_CPU (8000000 = 8MHZ)
@@ -29,34 +46,88 @@ void write(int val);
 
 	Draaiend op 8mhz moet de timer tot 399999 tellen om 1/20 van een seconde te bereiken.
 */
+
 int main(void)
 {
-	// 0 = input 1 = output
-	//DDRA = 0b00000101;//0x65; // 0b00000101
-    /* Replace with your application code */
+	LCD_Init();
+	LCD_ClearDisplay();
 	
-	//EICRA |= 0b00000011;
-	//EIMSK |= 0b00000001;
+	DDRA = 0x01;
+	PORTD = 0xFF;
 	
-	//sei();
-	DDRB = 0b11111111;		// PORT B output
-	TCCR1B |= ((1 << CS10) | (1 << CS11));	// geef de timer een klok (fcpu) 
+	TCCR3B = ((1 << CS10) | (1 << CS11));
+	TCNT3 = 0;
 	
-	//LCD_Init();
-	
+	sei();
+	//int count = 0;
+	int seconds = 0;
+	int ms = 0;
     while (1) 
     {
-		if (TCNT1 >= 31248)
+		//if (TCNT1 >= 31248)
+		//{
+			////LCD_ClearDisplay();
+			////LCD_SetCursorPos(0x00);
+			////char str[25] = "Reached";
+			////itoa(times, str, 25);
+			////LCD_WriteString("Reached");
+			//PORTB ^= (1 << 0);
+			//TCNT1 = 0;
+		//}
+		
+		
+		PORTA |= (1 << PA0);
+		Utils_Wait(15);
+		PORTA &= (~(1 << PA0));
+		
+		if (TCNT3 >= MS)
 		{
-			//LCD_ClearDisplay();
-			//LCD_SetCursorPos(0x00);
-			//char str[25] = "Reached";
-			//itoa(times, str, 25);
-			//LCD_WriteString("Reached");
-			PORTB ^= (1 << 0);
-			TCNT1 = 0;
+			ms++;
+			if (ms >= 50)
+			{
+				seconds++;
+				ms = 0;	
+				
+				char str[10];
+				itoa(seconds, str, 10);
+				fastPrint(str);
+			}			
+	
+			TCNT3 = 0;
 		}
-		//Utils_Wait(100);
+		//
+		//TCNT1 = 0;
+		//TCCR1B = 0x41;
+		//TIFR = 1 << ICF1;
+		//TIFR = 1 << TOV1;
+		//
+		//sei();
+		//fastPrint("1");
+		//while ((TIFR & (1 << ICF1)) == 0);
+		//fastPrint("2");
+		//TCNT1 = 0;
+		//TCCR1B = 0x01;
+		//TIFR = 1 << ICF1;
+		//TIFR = 1 << TOV1;
+		//sei();
+		//count = 0;
+		//
+		//while ((TIFR & (1 << ICF1)) == 0);
+		//
+		//fastPrint("3");
+		//
+		//long dataCount = ICR1 + (65535 * count);
+		//
+		//double distance = (double) dataCount / 466.47;
+		//
+		//char string[10];
+		//dtostrf(distance, 2, 2, string);
+		//strcat(string, "cm ");
+		//LCD_ClearDisplay();
+		//LCD_SetCursorPos(0x00);
+		//LCD_WriteString("Dist = ");
+		//LCD_WriteString(string);
+		
     }
 
 	return 0;

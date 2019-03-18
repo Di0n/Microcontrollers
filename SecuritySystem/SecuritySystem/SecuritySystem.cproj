@@ -155,6 +155,9 @@
     <None Include="code.txt">
       <SubType>compile</SubType>
     </None>
+    <None Include="kutcode3.txt">
+      <SubType>compile</SubType>
+    </None>
     <None Include="poging1.txt">
       <SubType>compile</SubType>
     </None>

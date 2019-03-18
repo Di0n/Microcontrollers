@@ -9,6 +9,7 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#define F_CPU 8000000L
 void Utils_Wait(int ms);
 
 
