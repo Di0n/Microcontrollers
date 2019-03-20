@@ -8,6 +8,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <string.h>
 
 #include "../header/utils.h"
 
@@ -48,6 +49,20 @@ void LCD_Init(void)
 	StrobeLcd();
 }
 
+void LCD_WriteLine(const char* str, int line)
+{
+	if (strlen(str) > 40) return;
+	
+	if (line != 1 && line != 2) return;
+	
+	LCD_ClearDisplay();
+	if (line == 1)
+		LCD_SetCursorPos(0x00);
+	else if (line == 2)
+		LCD_SetCursorPos(0x80);
+		
+	LCD_WriteString(str);
+}
 void LCD_WriteString(const char* str)
 {
 	for (; *str; str++)

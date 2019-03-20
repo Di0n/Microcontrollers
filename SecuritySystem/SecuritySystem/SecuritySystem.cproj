@@ -132,6 +132,9 @@
     <Compile Include="header\lcd.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="header\ultrasonic.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="header\utils.h">
       <SubType>compile</SubType>
     </Compile>
@@ -139,6 +142,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="source\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="source\ultrasonic.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="source\utils.c">
@@ -159,6 +165,9 @@
       <SubType>compile</SubType>
     </None>
     <None Include="poging1.txt">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="poging3.txt">
       <SubType>compile</SubType>
     </None>
     <None Include="ultrasonic_sensor.txt">
