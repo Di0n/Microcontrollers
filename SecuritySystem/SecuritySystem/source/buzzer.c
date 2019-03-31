@@ -9,7 +9,7 @@
 
 #define INTERVAL 2273
 
-void buzzer_Init(void)
+void buzzer_Start(void)
 {
 	ICR1 = INTERVAL;
 	OCR1A = INTERVAL / 4;
@@ -17,4 +17,9 @@ void buzzer_Init(void)
 	TCCR1B = 0b00011010;			// fast PWM, TOP = ICR1, prescaler=8 (1MHz), RUN
 }
 
+void buzzer_Stop(void)
+{
+	TCCR1A = 0;
+	TCCR1B = 0;
+}
 

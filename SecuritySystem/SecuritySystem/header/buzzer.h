@@ -12,7 +12,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-void buzzer_Init( void );
+void buzzer_Start(void);
+void buzzer_Stop(void);
 
 
 
