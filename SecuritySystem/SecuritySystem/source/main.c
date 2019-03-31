@@ -41,7 +41,7 @@ ISR(INT4_vect)
 	US_InterruptUpdate();
 }
 
-ISR(TIMER1_OVF_vect)
+ISR(TIMER3_OVF_vect)
 {
 	//timerOverflow++;
 }
@@ -50,11 +50,12 @@ int Init(void)
 {
 	LCD_Init();
 	
+	DDRB = 0b11111111;
 	DDRE = 0b01000000;
 	
 	EICRB |= 0b00000001;
 	EIMSK |= 0b00010000;
-	TIMSK = (1 << TOIE1);
+	ETIMSK = (1 << TOIE3);
 	//TCCR1B |= ((1 << CS10));
 	sei();
 	
@@ -72,7 +73,7 @@ int main(void)
 		
 		char str[10];
 
-		itoa(count, str, 10);
+		itoa(dist, str, 10);
 		
 		fastPrint(str);
 		
