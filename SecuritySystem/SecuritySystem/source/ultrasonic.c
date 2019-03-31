@@ -18,15 +18,15 @@ void US_InterruptUpdate(void)
 	// Low to high
 	if (flag == 0)
 	{
-		TCCR1B |=  (1 << CS11);
+		TCCR3B |=  (1 << CS11);
 		flag = 1;
 	}
 	// High to low
 	else
 	{
-		TCCR1B = 0;
-		pulse = TCNT1;
-		TCNT1 = 0;
+		TCCR3B = 0;
+		pulse = TCNT3;
+		TCNT3 = 0;
 		flag = 0;
 	}
 }

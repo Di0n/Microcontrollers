@@ -15,6 +15,7 @@
 #include "../header/utils.h"
 #include "../header/lcd.h"
 #include "../header/ultrasonic.h"
+#include "../header/buzzer.h"
 #include <util/delay.h>
 
 
@@ -65,6 +66,8 @@ int Init(void)
 int main(void)
 {
 	Init();
+	buzzer_Init();
+	
     while (1) 
     {		
 		US_SendPulse();
