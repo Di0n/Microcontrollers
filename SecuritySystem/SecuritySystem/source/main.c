@@ -18,6 +18,8 @@
 #include "../header/buzzer.h"
 #include <util/delay.h>
 
+uint8_t alarm_trig;
+uint16_t prev_dist;
 
 void fastPrint(const char* str)
 {
@@ -42,6 +44,12 @@ ISR(INT4_vect)
 	US_InterruptUpdate();
 }
 
+// Doe iets
+ISR(INT0_vect)
+{
+	alarm_trig = 0;
+}
+
 ISR(TIMER3_OVF_vect)
 {
 	//timerOverflow++;
@@ -54,10 +62,10 @@ int Init(void)
 	DDRB = 0b11111111;
 	DDRE = 0b01000000;
 	
+	EICRA |= 0b00000100;
 	EICRB |= 0b00000001;
-	EIMSK |= 0b00010000;
+	EIMSK |= 0b00010010;
 	ETIMSK = (1 << TOIE3);
-	//TCCR1B |= ((1 << CS10));
 	sei();
 	
 	return 0;
@@ -66,7 +74,10 @@ int Init(void)
 int main(void)
 {
 	Init();
-	buzzer_Init();
+	
+	int counter = 0;
+	alarm_trig = 0;
+	prev_dist = 0;
 	
     while (1) 
     {		
@@ -76,10 +87,24 @@ int main(void)
 		
 		char str[10];
 
-		itoa(dist, str, 10);
+		itoa(alarm_trig, str, 10);
+		
+		// Start the buzzer if movement is detected
+		if(prev_dist != dist && counter > 20) /* Giving a 2 sec delay for startup */
+			alarm_trig = 1;//buzzer_Start();
+		
+		if(alarm_trig == 0) // Stopping the buzzer
+			buzzer_Stop();
+		
+		if(alarm_trig)
+			buzzer_Start();
+		else
+			buzzer_Stop();
 		
 		fastPrint(str);
 		
+		prev_dist = dist;
+		counter++;
 		Utils_Wait(100);
     }
 
