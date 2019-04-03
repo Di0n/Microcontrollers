@@ -156,29 +156,6 @@
     <Compile Include="source\utils.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test.h">
-      <SubType>compile</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="code.txt">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="kutcode3.txt">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="poging1.txt">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="poging3.txt">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="ultrasonic_sensor.txt">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
